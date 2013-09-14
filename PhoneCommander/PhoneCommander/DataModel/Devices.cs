@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace PhoneCommander.DataModel
 {
-    class Devices
+    public class Devices
     {
         public int Id { get; set; }
         public String Name { get; set; }
-        public int User { get; set; }
+        public String User { get; set; }
         public String UniqueId { get; set; }
         
     }

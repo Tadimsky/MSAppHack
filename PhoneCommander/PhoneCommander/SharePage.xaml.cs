@@ -25,6 +25,9 @@ namespace PhoneCommander
     /// </summary>
     public sealed partial class SharePage : PhoneCommander.Common.LayoutAwarePage
     {
+
+
+        public static Devices SendTo;
         /// <summary>
         /// Provides a channel to communicate with Windows about the sharing operation.
         /// </summary>
@@ -86,6 +89,20 @@ namespace PhoneCommander
             //       this.DefaultViewModel["Comment"]
 
             this._shareOperation.ReportCompleted();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           
+        }
+
+        private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            var f = e.AddedItems;
+            if (f.Count > 0)
+            {
+                SendTo = (Devices)f[0];
+            }
         }
     }
 }

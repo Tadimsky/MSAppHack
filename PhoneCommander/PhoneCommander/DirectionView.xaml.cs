@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,6 +26,12 @@ namespace PhoneCommander
 
         private async void CallButton_Click(object sender, RoutedEventArgs e)
         {
+            if (SharePage.SendTo == null)
+            {
+                MessageDialog mb = new MessageDialog("Please select a device to send to.");
+                mb.ShowAsync();
+                return;
+            }
             progrBar.Visibility = Visibility.Visible;
             Command t = new Command();
             t.Address = txtAddress.Text;

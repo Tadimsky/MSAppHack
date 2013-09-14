@@ -14,6 +14,8 @@ namespace PhoneCommander.DataModel
         public ObservableCollection<String> Numbers { get; set; }
         public ObservableCollection<String> Addresses { get; set; }
 
+        public ObservableCollection<Devices>  Devices { get; set; }
+
         private bool loadingAddresses;
 
         public bool LoadingAddresses
@@ -48,9 +50,24 @@ namespace PhoneCommander.DataModel
         {
             Numbers = new ObservableCollection<String>();
             Addresses = new ObservableCollection<String>();
+            Devices = new ObservableCollection<Devices>();
+
+            LoadDevices();
 
             LoadingAddresses = true;
             LoadingNumbers = true;
+        }
+
+        private async Task LoadDevices()
+        {
+            List<Devices> t = await App.MobileService.GetTable<Devices>().Where(device => device.User == App.Settings.User.UserId).ToListAsync();
+            foreach (Devices f in t)
+            {
+                /*if (!f.UniqueId.Equals(App.Settings.Device))
+                {*/
+                    this.Devices.Add(f);    
+                //}
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Navigation;
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 using PhoneCommander.DataModel;
 using PhoneCommander.DataModel.Commands;
+using Windows.UI.Popups;
 
 namespace PhoneCommander
 {
@@ -25,6 +26,12 @@ namespace PhoneCommander
 
         private async void TextButton_Click(object sender, RoutedEventArgs e)
         {
+            if (SharePage.SendTo == null)
+            {
+                MessageDialog mb = new MessageDialog("Please select a device to send to.");
+                mb.ShowAsync();
+                return;
+            }
             if (txtTextContent.Visibility == Visibility.Collapsed)
             {
                 txtTextContent.Visibility = Visibility.Visible;
@@ -44,6 +51,12 @@ namespace PhoneCommander
 
         private async void CallButton_Click(object sender, RoutedEventArgs e)
         {
+            if (SharePage.SendTo == null)
+            {
+                MessageDialog mb = new MessageDialog("Please select a device to send to.");
+                mb.ShowAsync();
+                return;
+            }
             progrBar.Visibility = Visibility.Visible;
             Command t = new Command();
             t.Number = txtNumber.Text;
