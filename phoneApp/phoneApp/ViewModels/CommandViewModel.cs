@@ -26,15 +26,7 @@ namespace phoneApp.ViewModels
         {
             get
             {
-                return null;
-            }
-
-        }
-        public ObservableCollection<TextCommand> Text
-        {
-            get
-            {
-                return null;
+                return App.CommandManager.Numbers();
             }
 
         }

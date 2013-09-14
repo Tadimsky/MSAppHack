@@ -4,21 +4,28 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:phoneApp.ViewModels"
+    xmlns:views="clr-namespace:phoneApp.Views"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:local="using:phoneApp"
     mc:Ignorable="d"
-    FontFamily="{StaticResource PhoneFontFamilyNormal}"
-    FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}"
     d:DesignHeight="480" d:DesignWidth="480">
-    
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}">
-        <phone:LongListSelector ItemsSource="{Binding Commands}">
-            <phone:LongListSelector.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Id}" Style="{StaticResource PanoramaItemHeaderTextStyle}"></TextBlock>
-                </DataTemplate>
-            </phone:LongListSelector.ItemTemplate>
-        </phone:LongListSelector>
-    </Grid>
+    <phone:LongListSelector Margin="0,-38,-22,2" ItemsSource="{Binding Commands}">
+        <phone:LongListSelector.ItemTemplate>
+            <DataTemplate>
+                <Button Width="432" Height="105" BorderThickness="0" Click="Button_Click_1" >
+                    <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">
+                    <!--Replace rectangle with image-->
+                    <Border BorderThickness="1" Width="99" Height="99" BorderBrush="#FFFFC700" Background="#FFFFC700"/>
+                    <StackPanel Width="311" Margin="8,-7,0,0">
+                         <TextBlock Text="{Binding Id}" TextWrapping="Wrap" Margin="10,0" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="{StaticResource PhoneFontSizeLarge}" FontWeight="ExtraBold"/>
+                         <TextBlock Text="{Binding DateSent}" TextWrapping="Wrap" Margin="10,-2,10,0" Style="{StaticResource PhoneTextSubtleStyle}" />
+                    </StackPanel>
+                </StackPanel>
+            </Button>
+            </DataTemplate>
+        </phone:LongListSelector.ItemTemplate>
+    </phone:LongListSelector>
+
+
 </UserControl>

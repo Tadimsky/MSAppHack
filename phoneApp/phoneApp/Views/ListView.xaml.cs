@@ -10,17 +10,11 @@ using Microsoft.Phone.Shell;
 
 namespace phoneApp.Views
 {
-    public partial class DirectionsView : UserControl
+    public partial class ListView : UserControl
     {
-        public DirectionsView()
+        public ListView()
         {
             InitializeComponent();
-
-            DataContext = new phoneApp.ViewModels.CommandViewModel();
-        }
-        private void getDirections(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

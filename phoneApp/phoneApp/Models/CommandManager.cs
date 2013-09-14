@@ -16,6 +16,7 @@ namespace phoneApp.Models
     public class CommandManager
     {
         private ObservableCollection<Command> commands { get; set; }
+        
 
         public CommandManager()
         {
@@ -59,7 +60,7 @@ namespace phoneApp.Models
 
         public ObservableCollection<Command> Commands()
         {
-            return commands;
+            return new ObservableCollection<Command>(commands.OrderByDescending(Command => Command.Id));
         }
         public ObservableCollection<DirectionCommand> Directions()
         {
@@ -73,6 +74,19 @@ namespace phoneApp.Models
                 }
             }
             return directions;
+        }
+        public ObservableCollection<CallCommand> Numbers()
+        {
+            ObservableCollection<CallCommand> numbers = new ObservableCollection<CallCommand>();
+
+            foreach (Command c in commands)
+            {
+                if (c is CallCommand)
+                {
+                    numbers.Add((CallCommand)c);
+                }
+            }
+            return numbers;
         }
     }
 }

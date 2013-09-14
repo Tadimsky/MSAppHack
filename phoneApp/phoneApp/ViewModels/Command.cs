@@ -15,7 +15,14 @@ namespace PhoneCommander.DataModel.Commands
         public int ToDevice { get; set; }
         public DateTime DateSent { get; set; }
         public DateTime DateRead { get; set; }
-
+        public string type
+        {
+            get
+            {
+                return this.GetType().ToString();
+            }
+            
+        }
         public void MarkRead()
         {
             this.DateRead = DateTime.Now;
