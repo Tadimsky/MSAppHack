@@ -30,6 +30,10 @@
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
         <!-- Horizontal scrolling grid used in most view states -->
         <GridView
@@ -38,6 +42,7 @@
             AutomationProperties.Name="Items"
             TabIndex="1"
             Grid.RowSpan="2"
+            Grid.Column="1"
             Padding="116,136,116,46"
             ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
             ItemTemplate="{StaticResource Standard250x250ItemTemplate}"
@@ -56,6 +61,7 @@
             Visibility="Collapsed"
             Margin="0,-10,0,0"
             Padding="10,0,0,60"
+            Grid.Column="1"
             ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
             ItemTemplate="{StaticResource Standard80ItemTemplate}"
             SelectionMode="None"

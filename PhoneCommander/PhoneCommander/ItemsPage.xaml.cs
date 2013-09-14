@@ -15,8 +15,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
 // The Items Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234233
+using PhoneCommander.DataModel;
 
 namespace PhoneCommander
 {
@@ -55,10 +55,21 @@ namespace PhoneCommander
         /// <param name="e">Event data that describes the item clicked.</param>
         void ItemView_ItemClick(object sender, ItemClickEventArgs e)
         {
+
+            SaveItem();
+            
             // Navigate to the appropriate destination page, configuring the new page
             // by passing required information as a navigation parameter
             var groupId = ((SampleDataGroup)e.ClickedItem).UniqueId;
             this.Frame.Navigate(typeof(SplitPage), groupId);
+        }
+
+        
+
+        async void SaveItem()
+        {
+            Item item = new Item {Text = "Awesome Sauce"};
+            await App.MobileService.GetTable<Item>().InsertAsync(item);
         }
     }
 }

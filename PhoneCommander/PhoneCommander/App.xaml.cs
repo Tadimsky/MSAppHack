@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.WindowsAzure.MobileServices;
 
 // The Split App template is documented at http://go.microsoft.com/fwlink/?LinkId=234228
 
@@ -98,6 +99,21 @@ namespace PhoneCommander
             var deferral = e.SuspendingOperation.GetDeferral();
             await SuspensionManager.SaveAsync();
             deferral.Complete();
+        }
+
+        public static MobileServiceClient MobileService = new MobileServiceClient(
+            "https://contineo.azure-mobile.net/",
+            "dKkpkjGXSnvcEQLaHnyXpuiRrFzPuS21"
+        );
+
+        /// <summary>
+        /// Invoked when the application is activated as the target of a sharing operation.
+        /// </summary>
+        /// <param name="args">Details about the activation request.</param>
+        protected override void OnShareTargetActivated(Windows.ApplicationModel.Activation.ShareTargetActivatedEventArgs args)
+        {
+            var shareTargetPage = new PhoneCommander.SharePage();
+            shareTargetPage.Activate(args);
         }
     }
 }
