@@ -8,6 +8,8 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PhoneCommander.DataModel.Commands;
+using phoneApp.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace phoneApp.Views
 {
@@ -19,11 +21,20 @@ namespace phoneApp.Views
             DataContext = new phoneApp.ViewModels.CommandViewModel();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void change(object sender, RoutedEventArgs e)
         {
-            Command c = (Command) this.DataContext;
-            
-
+            if (sender is LongListSelector)
+            {
+                Command sel = (Command) (((LongListSelector)sender).SelectedItem);
+                if (sel is DirectionCommand || sel is AddressCommand)
+                {
+                    App.OpenMaps(((AddressCommand)sel).address);
+                }
+                else if(sel is CallCommand)
+                {
+                    App.makeCall(((CallCommand)sel).Number, ((CallCommand)sel).DisplayName);
+                }
+            }
         }
         
     }

@@ -8,6 +8,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using phoneApp.ViewModels;
+using PhoneCommander.DataModel.Commands;
 
 namespace phoneApp.Views
 {
@@ -20,10 +21,11 @@ namespace phoneApp.Views
         }
         private void call(object sender, RoutedEventArgs e)
         {
-            if (sender is RecentHistoryView)
-            {
-                //((RecentHistoryView)sender).GetValue();
-            }
+            CommandViewModel c = (CommandViewModel)sender;
+            Command cur = c.Commands.ElementAt(0);
+            
+            App.makeCall(((CallCommand)cur).Number, ((CallCommand)cur).DisplayName);
+            
         }
     }
 }

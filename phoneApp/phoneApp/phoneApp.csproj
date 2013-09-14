@@ -118,9 +118,6 @@
     <Compile Include="Views\DirectionsView.xaml.cs">
       <DependentUpon>DirectionsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ListView.xaml.cs">
-      <DependentUpon>ListView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\NumbersView.xaml.cs">
       <DependentUpon>NumbersView.xaml</DependentUpon>
     </Compile>
@@ -142,10 +139,6 @@
       <SubType>Designer</SubType>
     </DesignData>
     <Page Include="Views\DirectionsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

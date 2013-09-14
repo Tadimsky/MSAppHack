@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using phoneApp.ViewModels;
+using PhoneCommander.DataModel.Commands;
 
 namespace phoneApp.Views
 {
@@ -20,7 +22,11 @@ namespace phoneApp.Views
         }
         private void getDirections(object sender, RoutedEventArgs e)
         {
-
+            CommandViewModel c = (CommandViewModel)sender;
+            Command cur = c.Commands.ElementAt(0);
+            
+            App.OpenMaps(((AddressCommand)cur).address);
+            
         }
     }
 }

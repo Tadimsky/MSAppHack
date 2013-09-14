@@ -16,7 +16,6 @@ namespace phoneApp.Models
     public class CommandManager
     {
         private ObservableCollection<Command> commands { get; set; }
-        
 
         public CommandManager()
         {
@@ -25,15 +24,11 @@ namespace phoneApp.Models
         }
         private void InitializeCommands() 
         {
-            commands.Add(new Command() { Id = 1 });
-            commands.Add(new Command() { Id = 2 });
-            commands.Add(new Command() { Id = 3 });
-            commands.Add(new CallCommand() { Id = 10, DisplayName = "Call" });
-            commands.Add(new CallCommand() { Id = 10, DisplayName = "Call2" });
-            commands.Add(new CallCommand() { Id = 10, DisplayName = "Cal1" });
-            commands.Add(new TextCommand() { Id = 7, UserId = 12874 });
-            commands.Add(new DirectionCommand() { Id = 10,  address = "Bangalore" });
-            commands.Add(new DirectionCommand() { Id = 10, address= "Romania" });
+            commands.Add(new CallCommand() { Id = 1, DisplayName = "Pooface", Number="9196381191" });
+            commands.Add(new CallCommand() { Id = 2, DisplayName = "Call2", Number = "9196381191" });
+            commands.Add(new CallCommand() { Id = 3, DisplayName = "Cal1", Number = "9196381191" });
+            commands.Add(new DirectionCommand() { Id = 5,  address = "Duke University" });
+            commands.Add(new DirectionCommand() { Id = 6, address= "Seoul Korea" });
 
             /*
             Thread t = new Thread( new ThreadStart(

@@ -11,6 +11,9 @@ using Microsoft.Phone.Shell;
 using phoneApp.Resources;
 using phoneApp.ViewModels;
 using phoneApp.Models;
+using Microsoft.Phone.Tasks;
+using System.Device.Location;
+
 
 namespace phoneApp
 {
@@ -33,6 +36,36 @@ namespace phoneApp
 
                 return viewModel;
             }
+        }
+        public static void OpenMaps(string address)
+        {
+            MapsTask mapsTask = new MapsTask();
+
+            //Omit the Center property to use the user's current location.
+            //mapsTask.Center = new GeoCoordinate(47.6204, -122.3493);
+
+            mapsTask.SearchTerm = address;
+            mapsTask.ZoomLevel = 2;
+
+            mapsTask.Show();
+
+        }
+        public static void makeCall(String number, String displayName)
+        {
+            try
+            {
+                PhoneCallTask phoneCallTask = new PhoneCallTask();
+
+                phoneCallTask.PhoneNumber = number;
+                phoneCallTask.DisplayName = displayName;
+
+                phoneCallTask.Show();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+
         }
         public static CommandManager CommandManager
         {
