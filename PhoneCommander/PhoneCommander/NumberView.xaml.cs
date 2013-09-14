@@ -31,18 +31,24 @@ namespace PhoneCommander
             }
             else
             {
+                progrBar.Visibility = Visibility.Visible;
                 Command t = new Command();
                 t.Text = txtTextContent.Text;
                 t.Number = txtNumber.Text;
                 await App.MobileService.GetTable<Command>().InsertAsync(t);
 
                 txtTextContent.Visibility = Visibility.Collapsed;
+                progrBar.Visibility = Visibility.Collapsed;
             }
         }
 
-        private void CallButton_Click(object sender, RoutedEventArgs e)
+        private async void CallButton_Click(object sender, RoutedEventArgs e)
         {
-            // send phone call
+            progrBar.Visibility = Visibility.Visible;
+            Command t = new Command();
+            t.Number = txtNumber.Text;
+            await App.MobileService.GetTable<Command>().InsertAsync(t);
+            progrBar.Visibility = Visibility.Collapsed;
         }
     }
 }
