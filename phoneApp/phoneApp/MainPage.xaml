@@ -56,8 +56,9 @@
             </phone:PanoramaItem>
 
 
-            <phone:PanoramaItem Header="Phone Numbers">
-                <Grid/>
+            <phone:PanoramaItem Header="Numbers">
+
+                <view:NumbersView x:Name="Numbers"/>
             </phone:PanoramaItem>
         </phone:Panorama>
 

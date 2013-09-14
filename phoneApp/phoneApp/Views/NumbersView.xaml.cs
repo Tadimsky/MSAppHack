@@ -7,24 +7,23 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using PhoneCommander.DataModel.Commands;
+using phoneApp.ViewModels;
 
 namespace phoneApp.Views
 {
-    public partial class RecentHistoryView : UserControl
+    public partial class NumbersView : UserControl
     {
-        public RecentHistoryView()
+        public NumbersView()
         {
             InitializeComponent();
-            DataContext = new phoneApp.ViewModels.CommandViewModel();
+            DataContext = new CommandViewModel();
         }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void call(object sender, RoutedEventArgs e)
         {
-            Command c = (Command) this.DataContext;
-            
-
+            if (sender is RecentHistoryView)
+            {
+                //((RecentHistoryView)sender).GetValue();
+            }
         }
-        
     }
 }
