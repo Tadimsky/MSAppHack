@@ -30,11 +30,14 @@ namespace phoneApp
                 App.ViewModel.LoadData();
             }
 
-            App.Commands = new CommandManager();
             await App.Authenticate();
             await App.LoadDevice();
             App.Settings.Device.PushChannel = App.CurrentChannel.ToString();
             await App.MobileService.GetTable<Devices>().UpdateAsync(App.Settings.Device);
+
+            App.Commands = new CommandManager();
+
+            this.DataContext = App.Commands;
         }
 
         private void LongListSelector_SelectionChanged_1(object sender, SelectionChangedEventArgs e)

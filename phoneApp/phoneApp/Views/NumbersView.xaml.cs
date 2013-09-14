@@ -17,7 +17,7 @@ namespace phoneApp.Views
         public NumbersView()
         {
             InitializeComponent();
-            DataContext = new CommandViewModel();
+            //DataContext = App.Commands;
         }
         private void call(object sender, RoutedEventArgs e)
         {

@@ -11,7 +11,7 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DesignHeight="480" d:DesignWidth="480">
 
-    <phone:LongListSelector Margin="0,-38,-22,2" ItemsSource="{Binding Directions}" DoubleTap="getDirections">
+    <phone:LongListSelector Margin="0,-38,-22,2" ItemsSource="{Binding Addresses}" DoubleTap="getDirections">
         <phone:LongListSelector.ItemTemplate>
             <DataTemplate>
                 <StackPanel Orientation="Horizontal" Margin="12,2,0,4" Height="105" Width="432">

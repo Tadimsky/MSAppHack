@@ -18,7 +18,7 @@ namespace phoneApp.Views
         {
             InitializeComponent();
 
-            DataContext = new phoneApp.ViewModels.CommandViewModel();
+            //DataContext = App.Commands;
         }
         private void getDirections(object sender, RoutedEventArgs e)
         {

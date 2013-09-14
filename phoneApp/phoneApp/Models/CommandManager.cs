@@ -15,51 +15,34 @@ namespace phoneApp.Models
 
     public class CommandManager
     {
-        private ObservableCollection<Command> commands { get; set; }
+        public ObservableCollection<Command> Commands { get; set; }
+        public ObservableCollection<Command> Numbers { get; set; }
+        public ObservableCollection<Command> Addresses { get; set; }
+
 
         public CommandManager()
         {
-            this.commands = new ObservableCollection<Command>();
+            this.Commands = new ObservableCollection<Command>();
+            this.Numbers = new ObservableCollection<Command>();
+            this.Addresses = new ObservableCollection<Command>();
             InitializeCommands();
         }
+
         private async void InitializeCommands()
         {
             List<Command> f = await App.MobileService.GetTable<Command>().ToListAsync();
             foreach (var j in f)
             {
-                commands.Add(j);
-            }
-        }
-
-        public ObservableCollection<Command> Commands()
-        {
-            return new ObservableCollection<Command>(commands.OrderByDescending(Command => -Command.Id));
-        }
-        public ObservableCollection<Command> Directions()
-        {
-            ObservableCollection<Command> directions = new ObservableCollection<Command>();
-            
-            foreach (Command c in commands)
-            {
-                if(c.IsAddress)  
+                Commands.Add(j);
+                if (j.IsAddress)
                 {
-                    directions.Add(c);
+                    Addresses.Add(j);
+                }
+                else
+                {
+                    Numbers.Add(j);
                 }
             }
-            return directions;
-        }
-        public ObservableCollection<Command> Numbers()
-        {
-            ObservableCollection<Command> numbers = new ObservableCollection<Command>();
-
-            foreach (Command c in commands)
-            {
-                if (c.IsCall || c.IsText)
-                {
-                    numbers.Add(c);
-                }
-            }
-            return numbers;
         }
     }
 }

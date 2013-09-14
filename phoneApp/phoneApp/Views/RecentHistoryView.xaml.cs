@@ -18,7 +18,7 @@ namespace phoneApp.Views
         public RecentHistoryView()
         {
             InitializeComponent();
-            DataContext = new phoneApp.ViewModels.CommandViewModel();
+            //DataContext = App.Commands;
         }
 
         private void change(object sender, RoutedEventArgs e)
