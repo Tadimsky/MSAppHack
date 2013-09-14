@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
 using System.Resources;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Info;
+using Microsoft.Phone.Notification;
 using Microsoft.Phone.Shell;
+using Microsoft.WindowsAzure.MobileServices;
 using phoneApp.Resources;
 using phoneApp.ViewModels;
 using phoneApp.Models;
@@ -19,8 +23,12 @@ namespace phoneApp
 {
     public partial class App : Application
     {
+
+        public static StorageManager Settings;
+
+        public static CommandManager Commands;
+
         private static MainViewModel viewModel = null;
-        private static CommandManager commandManager = new CommandManager();
 
         /// <summary>
         /// A static ViewModel used by the views to bind against.
@@ -37,6 +45,27 @@ namespace phoneApp
                 return viewModel;
             }
         }
+
+
+        public static HttpNotificationChannel CurrentChannel { get; private set; }
+
+
+        private void AcquirePushChannel()
+        {
+            CurrentChannel = HttpNotificationChannel.Find("MyPushChannel");
+
+
+            if (CurrentChannel == null)
+            {
+                CurrentChannel = new HttpNotificationChannel("MyPushChannel");
+                CurrentChannel.Open();
+                CurrentChannel.BindToShellToast();
+            }
+
+
+        }
+
+
         public static void OpenMaps(string address)
         {
             MapsTask mapsTask = new MapsTask();
@@ -77,13 +106,6 @@ namespace phoneApp
             smsComposeTask.Show();
 
         }
-        public static CommandManager CommandManager
-        {
-            get
-            {
-                return commandManager;
-            }
-        }
 
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
@@ -96,6 +118,9 @@ namespace phoneApp
         /// </summary>
         public App()
         {
+
+            Settings = new StorageManager();
+            
             // Global handler for uncaught exceptions.
             UnhandledException += Application_UnhandledException;
 
@@ -132,13 +157,68 @@ namespace phoneApp
 
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated
-        private void Application_Launching(object sender, LaunchingEventArgs e)
+        private async void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            AcquirePushChannel();
+
+        }
+
+        public static MobileServiceClient MobileService = new MobileServiceClient(
+            "https://contineo.azure-mobile.net/",
+            "dKkpkjGXSnvcEQLaHnyXpuiRrFzPuS21"
+        );
+
+
+        public static async Task Authenticate()
+        {
+            while (Settings.User == null)
+            {
+                string message;
+                try
+                {
+                    App.Settings.User = await App.MobileService.LoginAsync(MobileServiceAuthenticationProvider.MicrosoftAccount);
+                    message = string.Format("You are now logged in!");
+                }
+                catch (InvalidOperationException)
+                {
+                    message = "You must login.";
+                }
+            }
+        }
+
+        public static async Task LoadDevice()
+        {
+            var items = await App.MobileService.GetTable<Devices>().Where(todoItem => todoItem.UniqueId == GetHardwareId() && todoItem.User == Settings.User.UserId).ToCollectionAsync();
+
+            foreach (var item in items)
+            {
+                App.Settings.Device = item;
+            }
+            if (Settings.Device == null)
+            {
+                Devices d = new Devices();
+                d.User = Settings.User.UserId;
+                d.UniqueId = GetHardwareId().GetHashCode().ToString();
+                var k = Windows.Networking.Connectivity.NetworkInformation.GetHostNames();
+                if (k != null)
+                {
+                    d.Name = k[0].DisplayName;
+                }
+                d.PushChannel = CurrentChannel.ToString();
+                await App.MobileService.GetTable<Devices>().InsertAsync(d);
+                Settings.Device = d;
+            }
+
+        }
+
+        public static object GetHardwareId()
+        {
+            return DeviceExtendedProperties.GetValue("DeviceUniqueId");
         }
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
-        private void Application_Activated(object sender, ActivatedEventArgs e)
+        private async void Application_Activated(object sender, ActivatedEventArgs e)
         {
             // Ensure that application state is restored appropriately
             if (!App.ViewModel.IsDataLoaded)

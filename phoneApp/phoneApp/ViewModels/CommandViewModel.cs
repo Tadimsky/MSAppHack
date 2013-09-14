@@ -11,14 +11,15 @@ using phoneApp.Models;
 namespace phoneApp.ViewModels
 {
     //generic view model to show the list of commands 
-    public class CommandViewModel {
+    public class CommandViewModel
+    {   
     
         public ObservableCollection<Command> Commands {get;set;}
         public ObservableCollection<Command> Directions
         {
             get
             {
-                return App.CommandManager.Directions();
+                return App.Commands.Directions();
             }
             
         }
@@ -26,7 +27,7 @@ namespace phoneApp.ViewModels
         {
             get
             {
-                return App.CommandManager.Numbers();
+                return App.Commands.Numbers();
             }
 
         }
@@ -34,7 +35,9 @@ namespace phoneApp.ViewModels
         public CommandViewModel()
         {
 
-            this.Commands = App.CommandManager.Commands();
+            App.Commands = new CommandManager();
+
+            this.Commands = App.Commands.Commands();
         }
         
     }

@@ -22,15 +22,13 @@ namespace phoneApp.Models
             this.commands = new ObservableCollection<Command>();
             InitializeCommands();
         }
-        private void InitializeCommands() 
+        private async void InitializeCommands()
         {
-            commands.Add(new Command() { Address = "duke University", Id = 10, UserId = 281 });
-            commands.Add(new Command() { Address = "vancouver", Id = 11, UserId = 81 });
-            commands.Add(new Command() { Number="901928", Id = 12, UserId = 21, Text="dinner here?" });
-            commands.Add(new Command() { Number = "901928", Id = 21, UserId = 218, Text = "dinner there?" });
-            commands.Add(new Command() { Number = "901928", Id = 121, UserId = 218 });
-            commands.Add(new Command() { Address = "Local Yogurt", Id = 33, UserId = 284 });
-            commands.Add(new Command() { Address = "Middle Earth", Id = 23, UserId = 24 });
+            List<Command> f = await App.MobileService.GetTable<Command>().ToListAsync();
+            foreach (var j in f)
+            {
+                commands.Add(j);
+            }
         }
 
         public ObservableCollection<Command> Commands()

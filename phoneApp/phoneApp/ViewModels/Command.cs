@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
+using Newtonsoft.Json;
 using phoneApp;
 
 namespace PhoneCommander.DataModel.Commands
@@ -11,28 +13,36 @@ namespace PhoneCommander.DataModel.Commands
     {
 
         public int Id { get; set; }
+        
+        public String UserId { get; set; }
 
-        public int UserId { get; set; }
+        public String FromDevice { get; set; }
 
-        public int FromDevice { get; set; }
-
-        public int ToDevice { get; set; }
+        public String ToDevice { get; set; }
 
         public DateTime DateSent { get; set; }
 
         public DateTime DateRead { get; set; }
 
         public String Number { get; set; }
-
+        
         public String Text { get; set; }
-
+        
         public String Address { get; set; }
 
         public Command()
         {
+            
             DateSent = DateTime.Now;
-            FromDevice = -1;
-            ToDevice = -1;
+            if (App.Settings.Device != null)
+            {
+                FromDevice = App.Settings.Device.UniqueId;
+            }
+            else
+            {
+                FromDevice = "";
+            }
+            ToDevice = "";
             Number = "";
             Text = "";
             Address = "";
