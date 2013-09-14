@@ -1,4 +1,7 @@
-﻿using PhoneCommander.Common;
+﻿using System.Threading.Tasks;
+using Windows.UI.Popups;
+using PhoneCommander.Classes;
+using PhoneCommander.Common;
 
 using System;
 using System.Collections.Generic;
@@ -16,8 +19,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.WindowsAzure.MobileServices;
-
+using Windows.System.Profile;
 // The Split App template is documented at http://go.microsoft.com/fwlink/?LinkId=234228
+using PhoneCommander.DataModel;
 
 namespace PhoneCommander
 {
@@ -25,7 +29,10 @@ namespace PhoneCommander
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
     sealed partial class App : Application
-    {
+    {   
+        public static StorageManager Settings;
+
+
         /// <summary>
         /// Initializes the singleton Application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -34,6 +41,8 @@ namespace PhoneCommander
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            App.Settings = new StorageManager();
+            
         }
 
         /// <summary>
@@ -43,12 +52,12 @@ namespace PhoneCommander
         /// </summary>
         /// <param name="args">Details about the launch request and process.</param>
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
-        {   
+        {
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            
+
             if (rootFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
@@ -78,13 +87,16 @@ namespace PhoneCommander
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                if (!rootFrame.Navigate(typeof(ItemsPage), "AllGroups"))
+                if (!rootFrame.Navigate(typeof (ItemsPage), "AllGroups"))
                 {
                     throw new Exception("Failed to create initial page");
                 }
             }
             // Ensure the current window is active
             Window.Current.Activate();
+
+            await Authenticate();
+            await LoadDevice();
         }
 
         /// <summary>
@@ -104,18 +116,70 @@ namespace PhoneCommander
         public static MobileServiceClient MobileService = new MobileServiceClient(
             "https://contineo.azure-mobile.net/",
             "dKkpkjGXSnvcEQLaHnyXpuiRrFzPuS21"
-        );
+            );
 
         /// <summary>
         /// Invoked when the application is activated as the target of a sharing operation.
         /// </summary>
         /// <param name="args">Details about the activation request.</param>
-        protected override void OnShareTargetActivated(Windows.ApplicationModel.Activation.ShareTargetActivatedEventArgs args)
+        protected override void OnShareTargetActivated(
+            Windows.ApplicationModel.Activation.ShareTargetActivatedEventArgs args)
         {
             var shareTargetPage = new PhoneCommander.SharePage();
             shareTargetPage.Activate(args);
         }
 
+        private async Task Authenticate()
+        {
+            while (Settings.User == null)
+            {
+                string message;
+                try
+                {
+                    Settings.User = await App.MobileService.LoginAsync(MobileServiceAuthenticationProvider.MicrosoftAccount);
+                    message = string.Format("You are now logged in as {0}", Settings.User.UserId);
+                }
+                catch (InvalidOperationException)
+                {
+                    message = "You must login.";
+                }
+
+                var dialog = new MessageDialog(message);
+                dialog.Commands.Add(new UICommand("OK"));
+                await dialog.ShowAsync();
+            }
+        }
+
+        private async Task LoadDevice()
+        {
+            var items = await App.MobileService.GetTable<Devices>().Where(todoItem => todoItem.UniqueId == GetHardwareId()).ToCollectionAsync();
+            foreach (var item in items)
+            {
+                
+            }
+            
+        }
+
+        protected async override void OnActivated(IActivatedEventArgs args)
+        {
+            base.OnActivated(args);
+            await Authenticate();
+
+        }
+
+        public static string GetHardwareId()
+        {
+            var token = HardwareIdentification.GetPackageSpecificToken(null);
+            var hardwareId = token.Id;
+            var dataReader = Windows.Storage.Streams.DataReader.FromBuffer(hardwareId);
+
+            byte[] bytes = new byte[hardwareId.Length];
+            dataReader.ReadBytes(bytes);
+
+            return BitConverter.ToString(bytes);
+        }  
+
         public static int DeviceId { get; set; }
     }
 }
+    

@@ -11,5 +11,7 @@ namespace PhoneCommander.DataModel
         public int Id { get; set; }
         public String Name { get; set; }
         public int User { get; set; }
+        public String UniqueId { get; set; }
+        
     }
 }

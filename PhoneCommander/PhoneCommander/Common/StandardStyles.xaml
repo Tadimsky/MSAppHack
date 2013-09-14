@@ -538,6 +538,12 @@
         <Setter Property="Content" Value="&#xE13A;"/>
     </Style>
 
+    <Style x:Key="LocationBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="SettingsAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value=""/>
+        <Setter Property="Content" Value="&#xE139;"/>
+    </Style>
+
     <!--
     <Style x:Key="VideoAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="VideoAppBarButton"/>
