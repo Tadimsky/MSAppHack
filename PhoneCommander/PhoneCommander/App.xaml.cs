@@ -43,7 +43,7 @@ namespace PhoneCommander
         /// </summary>
         /// <param name="args">Details about the launch request and process.</param>
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
-        {
+        {   
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -115,5 +115,7 @@ namespace PhoneCommander
             var shareTargetPage = new PhoneCommander.SharePage();
             shareTargetPage.Activate(args);
         }
+
+        public static int DeviceId { get; set; }
     }
 }

@@ -103,12 +103,18 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\Commands\CallCommand.cs" />
+    <Compile Include="Classes\Detector.cs" />
+    <Compile Include="Classes\HTMLDownloader.cs" />
+    <Compile Include="Classes\SmartyStreets.cs" />
     <Compile Include="DataModel\Commands\Command.cs" />
-    <Compile Include="DataModel\Commands\TextCommand.cs" />
+    <Compile Include="DataModel\DetectedItems.cs" />
+    <Compile Include="DataModel\Devices.cs" />
     <Compile Include="DataModel\Item.cs" />
     <Compile Include="ItemsPage.xaml.cs">
       <DependentUpon>ItemsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NumberView.xaml.cs">
+      <DependentUpon>NumberView.xaml</DependentUpon>
     </Compile>
     <Compile Include="SharePage.xaml.cs">
       <DependentUpon>SharePage.xaml</DependentUpon>
@@ -155,6 +161,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="NumberView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SharePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -165,6 +175,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\winrt45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Threading.Tasks">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.16\lib\win8\Microsoft.Threading.Tasks.dll</HintPath>
     </Reference>
