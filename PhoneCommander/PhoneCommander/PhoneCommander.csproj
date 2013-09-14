@@ -106,6 +106,10 @@
     <Compile Include="Classes\Detector.cs" />
     <Compile Include="Classes\HTMLDownloader.cs" />
     <Compile Include="Classes\SmartyStreets.cs" />
+    <Compile Include="Classes\StorageManager.cs" />
+    <Compile Include="DirectionView.xaml.cs">
+      <DependentUpon>DirectionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\Commands\Command.cs" />
     <Compile Include="DataModel\DetectedItems.cs" />
     <Compile Include="DataModel\Devices.cs" />
@@ -154,6 +158,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Common\StandardStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DirectionView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

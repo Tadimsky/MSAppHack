@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="PhoneCommander.NumberView"
+    x:Class="PhoneCommander.DirectionView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:PhoneCommander"
@@ -18,11 +18,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="txtNumber" Grid.Row="0" Text="{Binding}" Margin="10 -10 0 0" Grid.Column="0" Style="{StaticResource SubheaderTextStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" ></TextBlock>
-        <Button Grid.Row="0" Style="{StaticResource TextAppBarButtonStyle}" Grid.ColumnSpan="2" Margin="234,-11,0,-17" Width="76" Click="TextButton_Click" ToolTipService.ToolTip="Send a text Message to this number." />
-        <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneAppBarButtonStyle}" Grid.ColumnSpan="2" Margin="65,-11,0,-29" Click="CallButton_Click" ToolTipService.ToolTip="Call this phone number on your phone." />
-        <TextBox Grid.ColumnSpan="3" x:Name="txtTextContent" Height="60" Grid.Row="1" Text="Hello" AcceptsReturn="True" Visibility="Collapsed"></TextBox>
-        
+        <TextBlock x:Name="txtAddress" Grid.Row="0" Text="{Binding}" Margin="10 -10 0 0" Grid.Column="0" Style="{StaticResource SubheaderTextStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" ></TextBlock>
+        <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource LocationBarButtonStyle}" Grid.ColumnSpan="2" Margin="65,-11,0,-29" Click="CallButton_Click" ToolTipService.ToolTip="Call this phone number on your phone." />
         <ProgressBar x:Name="progrBar" IsIndeterminate="True" Visibility="Collapsed" Grid.ColumnSpan="3"></ProgressBar>
     </Grid>
 </UserControl>

@@ -17,36 +17,17 @@ using PhoneCommander.DataModel.Commands;
 
 namespace PhoneCommander
 {
-    public sealed partial class NumberView : UserControl
-    {   public NumberView()
+    public sealed partial class DirectionView : UserControl
+    {   public DirectionView()
         {
             this.InitializeComponent();
-        }
-
-        private async void TextButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (txtTextContent.Visibility == Visibility.Collapsed)
-            {
-                txtTextContent.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                progrBar.Visibility = Visibility.Visible;
-                Command t = new Command();
-                t.Text = txtTextContent.Text;
-                t.Number = txtNumber.Text;
-                await App.MobileService.GetTable<Command>().InsertAsync(t);
-
-                txtTextContent.Visibility = Visibility.Collapsed;
-                progrBar.Visibility = Visibility.Collapsed;
-            }
         }
 
         private async void CallButton_Click(object sender, RoutedEventArgs e)
         {
             progrBar.Visibility = Visibility.Visible;
             Command t = new Command();
-            t.Number = txtNumber.Text;
+            t.Address = txtAddress.Text;
             await App.MobileService.GetTable<Command>().InsertAsync(t);
             progrBar.Visibility = Visibility.Collapsed;
         }

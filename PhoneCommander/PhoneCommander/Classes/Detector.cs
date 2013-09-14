@@ -62,15 +62,36 @@ namespace PhoneCommander.Classes
             HashSet<String> numbers = new HashSet<String>();
             Regex matcher = new Regex(PHONE_FORMAT);
             Match match = matcher.Match(input);
-            while (match.Success) 
+            while (match.Success)
             {
-                numbers.Add(match.Value);
+                String p = match.Value;
+
+                numbers.Add(GetNumber(p));
                 match = match.NextMatch();
             }
             return new List<string>(numbers);
 
         }
 
+        private static String GetNumber(String yolo)
+        {
+            String f = "";
+            int chars = 0;
+            foreach (char c in yolo.ToCharArray().Reverse())
+            {
+                int val = -1;
+                if (int.TryParse(c.ToString(), out val))
+                {
+                    f = c + f;
+                    if (chars == 3 || chars == 6 || chars == 9)
+                    {
+                        f = " " + f;
+                    }
+                    chars++;
+                }
+            }
+            return f;
+        }
 
         private async static Task<List<String>> getAddresses(String input)
         {
