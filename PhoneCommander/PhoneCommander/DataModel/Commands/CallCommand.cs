@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PhoneCommander.DataModel.Commands
 {
-    class CallCommand : Command
+    public class CallCommand : Command
     {
         public string Number { get; set; }
         public string DisplayName { get; set; }

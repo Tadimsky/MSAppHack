@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PhoneCommander.DataModel.Commands
 {
-    class Command
+    public class Command
     {
 
         public int Id { get; set; }

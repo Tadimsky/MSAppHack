@@ -12,7 +12,6 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-
         <!-- Collection of items displayed by this page -->
         <CollectionViewSource
             x:Name="itemsViewSource"
@@ -30,26 +29,45 @@
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="600" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
+        
         <!-- Horizontal scrolling grid used in most view states -->
         <GridView
             x:Name="itemGridView"
-            AutomationProperties.AutomationId="ItemsGridView"
-            AutomationProperties.Name="Items"
             TabIndex="1"
             Grid.RowSpan="2"
-            Grid.Column="1"
-            Padding="116,136,116,46"
-            ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
-            ItemTemplate="{StaticResource Standard250x250ItemTemplate}"
-            SelectionMode="None"
-            IsSwipeEnabled="false"
-            IsItemClickEnabled="True"
-            ItemClick="ItemView_ItemClick"/>
+            Padding="116,136,116,46" SelectionMode="None"
+        >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ListView>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="Yolo"></TextBlock>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListViewItem Content="Yolo"/>
+                    <ListViewItem Content="Yolo"/>
+                    <ListViewItem Content="Yolo"/>
+                    <ListViewItem Content="Yolo"/>
+                </ListView>
+                
+                
+                <GridView
+                    Grid.Column="1"
+                ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
+                ItemTemplate="{StaticResource Standard250x250ItemTemplate}"
+                SelectionMode="None"
+                ItemClick="ItemView_ItemClick"
+                IsSwipeEnabled="false"
+                IsItemClickEnabled="True"
+                AutomationProperties.AutomationId="ItemsGridView"
+                AutomationProperties.Name="Items"
+            />
+            </Grid>
+        </GridView>
 
         <!-- Vertical scrolling list only used when snapped -->
         <ListView
@@ -70,7 +88,7 @@
             ItemClick="ItemView_ItemClick"/>
 
         <!-- Back button and page title -->
-        <Grid>
+        <Grid Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>

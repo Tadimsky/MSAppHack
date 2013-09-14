@@ -15,15 +15,23 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="PhoneCommander.App">
-      <VisualElements DisplayName="PhoneCommander" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="PhoneCommander" ForegroundText="light" BackgroundColor="#464646">
+      <VisualElements DisplayName="Contineo" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="PhoneCommander" ForegroundText="light" BackgroundColor="#464646">
         <DefaultTile ShowName="allLogos" />
         <SplashScreen Image="Assets\SplashScreen.png" />
+        <InitialRotationPreference>
+          <Rotation Preference="landscape" />
+        </InitialRotationPreference>
       </VisualElements>
       <Extensions>
         <Extension Category="windows.shareTarget">
           <ShareTarget>
+            <SupportedFileTypes>
+              <SupportsAnyFileType />
+            </SupportedFileTypes>
             <DataFormat>text</DataFormat>
             <DataFormat>uri</DataFormat>
+            <DataFormat>html</DataFormat>
+            <DataFormat>rtf</DataFormat>
           </ShareTarget>
         </Extension>
       </Extensions>

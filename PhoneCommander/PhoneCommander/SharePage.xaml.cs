@@ -13,8 +13,10 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-
 // The Share Target Contract item template is documented at http://go.microsoft.com/fwlink/?LinkId=234241
+using PhoneCommander.Classes;
+using PhoneCommander.DataModel;
+using PhoneCommander.DataModel.Commands;
 
 namespace PhoneCommander
 {
@@ -40,6 +42,7 @@ namespace PhoneCommander
         public async void Activate(ShareTargetActivatedEventArgs args)
         {
             this._shareOperation = args.ShareOperation;
+            
 
             // Communicate metadata about the shared content through the view model
             var shareProperties = this._shareOperation.Data.Properties;
@@ -53,6 +56,11 @@ namespace PhoneCommander
             this.DefaultViewModel["SupportsComment"] = true;
             Window.Current.Content = this;
             Window.Current.Activate();
+
+            Detector dt = new Detector(_shareOperation.Data);
+            dt.Detect();
+
+            this.DataContext = dt.Detected;
 
             // Update the shared content's thumbnail image in the background
             if (shareProperties.Thumbnail != null)
