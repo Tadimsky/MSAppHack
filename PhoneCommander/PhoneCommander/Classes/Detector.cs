@@ -44,12 +44,14 @@ namespace PhoneCommander.Classes
                 {
                     Detected.Numbers.Add(num);    
                 }
+                Detected.LoadingNumbers = false;
                 Debug.WriteLine(" Detect Numbers - " + st.ElapsedMilliseconds);
                 nums = await getAddresses(HtmlContent);
                 foreach (var address in nums)
                 {
                     Detected.Addresses.Add(address);
                 }
+                Detected.LoadingAddresses = false;
                 Debug.WriteLine(" Detect Addresses - " + st.ElapsedMilliseconds);
             }
         }

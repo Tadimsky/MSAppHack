@@ -59,7 +59,6 @@ namespace PhoneCommander
 
             Detector dt = new Detector(_shareOperation.Data);
             dt.Detect();
-
             this.DataContext = dt.Detected;
 
             // Update the shared content's thumbnail image in the background

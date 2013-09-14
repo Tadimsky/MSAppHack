@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace PhoneCommander.DataModel.Commands
 {
@@ -10,12 +11,21 @@ namespace PhoneCommander.DataModel.Commands
     {
 
         public int Id { get; set; }
-        public int UserId { get; set; }
-        public int FromDevice { get; set; }
-        public int ToDevice { get; set; }
-        public DateTime DateSent { get; set; }
-        public DateTime DateRead { get; set; }
 
+        [JsonProperty(PropertyName = "userid")]
+        public int UserId { get; set; }
+
+        [JsonProperty(PropertyName = "fromdevice")]
+        public int FromDevice { get; set; }
+
+        [JsonProperty(PropertyName = "todevice")]
+        public int ToDevice { get; set; }
+
+        [JsonProperty(PropertyName = "datesent")]
+        public DateTime DateSent { get; set; }
+
+        [JsonProperty(PropertyName = "dateread")]
+        public DateTime DateRead { get; set; }
 
         public void MarkRead()
         {

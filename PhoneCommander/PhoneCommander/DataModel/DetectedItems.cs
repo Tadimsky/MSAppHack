@@ -14,10 +14,43 @@ namespace PhoneCommander.DataModel
         public ObservableCollection<String> Numbers { get; set; }
         public ObservableCollection<String> Addresses { get; set; }
 
+        private bool loadingAddresses;
+
+        public bool LoadingAddresses
+        {
+            get
+            {
+                return loadingAddresses;
+            }
+            set
+            {
+                loadingAddresses = value;
+                OnPropertyChanged("LoadingAddresses");
+            }
+        }
+
+        private bool loadingNumbers;
+
+        public bool LoadingNumbers
+        {
+            get
+            {
+                return loadingNumbers;
+            }
+            set
+            {
+                loadingNumbers = value;
+                OnPropertyChanged("LoadingNumbers");
+            }
+        }
+
         public DetectedItems()
         {
             Numbers = new ObservableCollection<String>();
             Addresses = new ObservableCollection<String>();
+
+            LoadingAddresses = true;
+            LoadingNumbers = true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

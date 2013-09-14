@@ -110,9 +110,13 @@
     <Compile Include="DataModel\Commands\Command.cs" />
     <Compile Include="DataModel\Commands\TextCommand.cs" />
     <Compile Include="DataModel\DetectedItems.cs" />
+    <Compile Include="DataModel\Devices.cs" />
     <Compile Include="DataModel\Item.cs" />
     <Compile Include="ItemsPage.xaml.cs">
       <DependentUpon>ItemsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NumberView.xaml.cs">
+      <DependentUpon>NumberView.xaml</DependentUpon>
     </Compile>
     <Compile Include="SharePage.xaml.cs">
       <DependentUpon>SharePage.xaml</DependentUpon>
@@ -158,6 +162,10 @@
     <Page Include="ItemsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NumberView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SharePage.xaml">
       <SubType>Designer</SubType>
