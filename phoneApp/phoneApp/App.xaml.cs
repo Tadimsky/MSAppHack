@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Navigation;
+using System.Windows.Threading;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Info;
 using Microsoft.Phone.Notification;
@@ -378,5 +379,21 @@ namespace phoneApp
                 throw;
             }
         }
+
+        //push nofiticaion retceived
+        void PushChannel_ChannelUriUpdated(object sender, NotificationChannelUriEventArgs e)
+        {
+            /**
+            Dispatcher.BeginInvoke(() =>
+            {
+                // Display the new URI for testing purposes. Normally, the URI would be passed back to your web service at this point.
+                System.Diagnostics.Debug.WriteLine(e.ChannelUri.ToString());
+                MessageBox.Show(String.Format("Channel Uri is {0}",
+                    e.ChannelUri.ToString()));
+
+            });
+             */
+        }
+
     }
 }
