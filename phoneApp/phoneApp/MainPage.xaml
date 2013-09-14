@@ -50,7 +50,7 @@
                        
             </phone:PanoramaItem>
 
-            <phone:PanoramaItem Header="Directions">
+            <phone:PanoramaItem Header="Addresses">
                 <view:DirectionsView x:Name="Directions"/>
                 
             </phone:PanoramaItem>

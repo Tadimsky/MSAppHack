@@ -24,61 +24,41 @@ namespace phoneApp.Models
         }
         private void InitializeCommands() 
         {
-            commands.Add(new CallCommand() { Id = 1, DisplayName = "Pooface", Number="9196381191" });
-            commands.Add(new CallCommand() { Id = 2, DisplayName = "Call2", Number = "9196381191" });
-            commands.Add(new CallCommand() { Id = 3, DisplayName = "Cal1", Number = "9196381191" });
-            commands.Add(new DirectionCommand() { Id = 5,  address = "Duke University" });
-            commands.Add(new DirectionCommand() { Id = 6, address= "Seoul Korea" });
-
-            /*
-            Thread t = new Thread( new ThreadStart(
-                this.add
-                ));
-            t.Start();
-            */
-
-        }
-
-        private void add()
-        {
-            /*
-            while (true)
-            {
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
-                {
-                    this.commands.Add(new Command() { Id = 7 });
-                });
-                Thread.Sleep(500);
-            }
-            */
+            commands.Add(new Command() { Address = "duke University", Id = 10, UserId = 281 });
+            commands.Add(new Command() { Address = "vancouver", Id = 11, UserId = 81 });
+            commands.Add(new Command() { Number="901928", Id = 12, UserId = 21, Text="dinner here?" });
+            commands.Add(new Command() { Number = "901928", Id = 21, UserId = 218, Text = "dinner there?" });
+            commands.Add(new Command() { Number = "901928", Id = 121, UserId = 218 });
+            commands.Add(new Command() { Address = "Local Yogurt", Id = 33, UserId = 284 });
+            commands.Add(new Command() { Address = "Middle Earth", Id = 23, UserId = 24 });
         }
 
         public ObservableCollection<Command> Commands()
         {
-            return new ObservableCollection<Command>(commands.OrderByDescending(Command => Command.Id));
+            return new ObservableCollection<Command>(commands.OrderByDescending(Command => -Command.Id));
         }
-        public ObservableCollection<DirectionCommand> Directions()
+        public ObservableCollection<Command> Directions()
         {
-            ObservableCollection<DirectionCommand> directions = new ObservableCollection<DirectionCommand>();
+            ObservableCollection<Command> directions = new ObservableCollection<Command>();
             
             foreach (Command c in commands)
             {
-                if(c is DirectionCommand)  
+                if(c.IsAddress)  
                 {
-                    directions.Add((DirectionCommand)c);
+                    directions.Add(c);
                 }
             }
             return directions;
         }
-        public ObservableCollection<CallCommand> Numbers()
+        public ObservableCollection<Command> Numbers()
         {
-            ObservableCollection<CallCommand> numbers = new ObservableCollection<CallCommand>();
+            ObservableCollection<Command> numbers = new ObservableCollection<Command>();
 
             foreach (Command c in commands)
             {
-                if (c is CallCommand)
+                if (c.IsCall || c.IsText)
                 {
-                    numbers.Add((CallCommand)c);
+                    numbers.Add(c);
                 }
             }
             return numbers;

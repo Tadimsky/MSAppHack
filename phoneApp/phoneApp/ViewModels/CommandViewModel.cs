@@ -14,7 +14,7 @@ namespace phoneApp.ViewModels
     public class CommandViewModel {
     
         public ObservableCollection<Command> Commands {get;set;}
-        public ObservableCollection<DirectionCommand> Directions
+        public ObservableCollection<Command> Directions
         {
             get
             {
@@ -22,7 +22,7 @@ namespace phoneApp.ViewModels
             }
             
         }
-        public ObservableCollection<CallCommand> Numbers
+        public ObservableCollection<Command> Numbers
         {
             get
             {

@@ -67,6 +67,16 @@ namespace phoneApp
             }
 
         }
+        public static void sendText(String text, String number)
+        {
+            SmsComposeTask smsComposeTask = new SmsComposeTask();
+
+            smsComposeTask.To = number;
+            smsComposeTask.Body = text;
+
+            smsComposeTask.Show();
+
+        }
         public static CommandManager CommandManager
         {
             get

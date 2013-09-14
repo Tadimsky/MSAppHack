@@ -22,11 +22,12 @@ namespace phoneApp.Views
         }
         private void getDirections(object sender, RoutedEventArgs e)
         {
-            CommandViewModel c = (CommandViewModel)sender;
-            Command cur = c.Commands.ElementAt(0);
-            
-            App.OpenMaps(((AddressCommand)cur).address);
-            
+            Command sel = (Command)(((LongListSelector)sender).SelectedItem);
+
+            if (sel.IsAddress)
+            {
+                App.OpenMaps(sel.Address);
+            }
         }
     }
 }

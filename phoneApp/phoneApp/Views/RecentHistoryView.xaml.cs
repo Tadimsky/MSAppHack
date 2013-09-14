@@ -25,14 +25,18 @@ namespace phoneApp.Views
         {
             if (sender is LongListSelector)
             {
-                Command sel = (Command) (((LongListSelector)sender).SelectedItem);
-                if (sel is DirectionCommand || sel is AddressCommand)
+                Command sel = (Command)(((LongListSelector)sender).SelectedItem);
+                if (sel.IsAddress)
                 {
-                    App.OpenMaps(((AddressCommand)sel).address);
+                    App.OpenMaps(sel.Address);
                 }
-                else if(sel is CallCommand)
+                else if (sel.IsCall)
                 {
-                    App.makeCall(((CallCommand)sel).Number, ((CallCommand)sel).DisplayName);
+                    App.makeCall(sel.Number, "Tester Bob");
+                }
+                else
+                {
+                    App.sendText(sel.Text,sel.Number); 
                 }
             }
         }

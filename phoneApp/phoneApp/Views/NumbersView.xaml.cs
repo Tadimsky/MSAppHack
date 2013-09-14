@@ -21,10 +21,16 @@ namespace phoneApp.Views
         }
         private void call(object sender, RoutedEventArgs e)
         {
-            CommandViewModel c = (CommandViewModel)sender;
-            Command cur = c.Commands.ElementAt(0);
-            
-            App.makeCall(((CallCommand)cur).Number, ((CallCommand)cur).DisplayName);
+                Command sel = (Command)(((LongListSelector)sender).SelectedItem);
+                
+                if (sel.IsCall)
+                {
+                    App.makeCall(sel.Number, "Tester Bob");
+                }
+                else
+                {
+                    App.sendText(sel.Text, sel.Number);
+                }
             
         }
     }
