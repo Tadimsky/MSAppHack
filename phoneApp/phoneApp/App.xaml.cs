@@ -205,7 +205,7 @@ namespace phoneApp
                 {
                     d.Name = k[0].DisplayName;
                 }
-                d.PushChannel = CurrentChannel.ToString();
+                d.PushChannel = CurrentChannel.ChannelUri.ToString();
                 await App.MobileService.GetTable<Devices>().InsertAsync(d);
                 Settings.Device = d;
             }
