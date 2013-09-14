@@ -27,9 +27,52 @@ namespace PhoneCommander.DataModel.Commands
         [JsonProperty(PropertyName = "dateread")]
         public DateTime DateRead { get; set; }
 
+        [JsonProperty(PropertyName = "number")]
+        public String Number { get; set; }
+
+        [JsonProperty(PropertyName = "text")]
+        public String Text { get; set; }
+
+        [JsonProperty(PropertyName = "address")]
+        public String Address { get; set; }
+
+        public Command()
+        {
+            DateSent = DateTime.Now;
+            FromDevice = App.DeviceId;
+            ToDevice = -1;
+            Number = "";
+            Text = "";
+            Address = "";
+        }
+
         public void MarkRead()
         {
             this.DateRead = DateTime.Now;
+        }
+
+        public bool IsCall
+        {
+            get
+            {
+                return !String.IsNullOrEmpty(Number) && String.IsNullOrEmpty(Text);
+            }
+        }
+
+        public bool IsText
+        {
+            get
+            {
+                return !String.IsNullOrEmpty(Number) && !String.IsNullOrEmpty(Text);
+            }
+        }
+
+        public bool IsAddress
+        {
+            get
+            {
+                return !String.IsNullOrEmpty(Address) && String.IsNullOrEmpty(Text);
+            }
         }
     }
 }

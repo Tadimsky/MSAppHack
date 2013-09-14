@@ -106,9 +106,7 @@
     <Compile Include="Classes\Detector.cs" />
     <Compile Include="Classes\HTMLDownloader.cs" />
     <Compile Include="Classes\SmartyStreets.cs" />
-    <Compile Include="DataModel\Commands\CallCommand.cs" />
     <Compile Include="DataModel\Commands\Command.cs" />
-    <Compile Include="DataModel\Commands\TextCommand.cs" />
     <Compile Include="DataModel\DetectedItems.cs" />
     <Compile Include="DataModel\Devices.cs" />
     <Compile Include="DataModel\Item.cs" />

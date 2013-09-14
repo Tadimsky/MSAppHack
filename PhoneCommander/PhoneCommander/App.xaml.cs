@@ -115,5 +115,7 @@ namespace PhoneCommander
             var shareTargetPage = new PhoneCommander.SharePage();
             shareTargetPage.Activate(args);
         }
+
+        public static int DeviceId { get; set; }
     }
 }

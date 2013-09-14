@@ -25,10 +25,6 @@ namespace PhoneCommander
 
         private async void TextButton_Click(object sender, RoutedEventArgs e)
         {
-            //Devices d = new Devices {Name = "Jonno"};
-            //await App.MobileService.GetTable<Devices>().InsertAsync(d);
-            
-
             if (txtTextContent.Visibility == Visibility.Collapsed)
             {
                 txtTextContent.Visibility = Visibility.Visible;
@@ -36,11 +32,9 @@ namespace PhoneCommander
             else
             {
                 Command t = new Command();
-                //t.Text = txtTextContent.Text;
-                //t.Numbers = new List<string>();
-                //t.Numbers.Add(txtNumber.Text);
-                //t.Id = 1000102;
-                await  App.MobileService.GetTable<Command>().InsertAsync(t);
+                t.Text = txtTextContent.Text;
+                t.Number = txtNumber.Text;
+                await App.MobileService.GetTable<Command>().InsertAsync(t);
 
                 txtTextContent.Visibility = Visibility.Collapsed;
             }
