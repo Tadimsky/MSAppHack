@@ -31,6 +31,7 @@ namespace phoneApp.Models
         private async void InitializeCommands()
         {
             List<Command> f = await App.MobileService.GetTable<Command>().ToListAsync();
+            var g = new List<Command>(f.OrderByDescending((command => command.DateSent)));
             foreach (var j in f)
             {
                 Commands.Add(j);
@@ -43,6 +44,7 @@ namespace phoneApp.Models
                     Numbers.Add(j);
                 }
             }
+            
         }
     }
 }
