@@ -28,6 +28,8 @@ namespace PhoneCommander.Classes
             }
         }
 
+        public String Device { get; set; }
+
         public StorageManager()
         {
             localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;

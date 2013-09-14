@@ -95,6 +95,12 @@ namespace PhoneCommander
             // Ensure the current window is active
             Window.Current.Activate();
 
+            await loadData();
+        }
+
+
+        private async Task loadData()
+        {
             await Authenticate();
             await LoadDevice();
         }
@@ -122,11 +128,12 @@ namespace PhoneCommander
         /// Invoked when the application is activated as the target of a sharing operation.
         /// </summary>
         /// <param name="args">Details about the activation request.</param>
-        protected override void OnShareTargetActivated(
+        protected async override void OnShareTargetActivated(
             Windows.ApplicationModel.Activation.ShareTargetActivatedEventArgs args)
         {
             var shareTargetPage = new PhoneCommander.SharePage();
             shareTargetPage.Activate(args);
+            await loadData();
         }
 
         private async Task Authenticate()
@@ -137,7 +144,7 @@ namespace PhoneCommander
                 try
                 {
                     Settings.User = await App.MobileService.LoginAsync(MobileServiceAuthenticationProvider.MicrosoftAccount);
-                    message = string.Format("You are now logged in as {0}", Settings.User.UserId);
+                    message = string.Format("You are now logged in!");
                 }
                 catch (InvalidOperationException)
                 {
@@ -152,10 +159,24 @@ namespace PhoneCommander
 
         private async Task LoadDevice()
         {
-            var items = await App.MobileService.GetTable<Devices>().Where(todoItem => todoItem.UniqueId == GetHardwareId()).ToCollectionAsync();
+            var items = await App.MobileService.GetTable<Devices>().Where(todoItem => todoItem.UniqueId == GetHardwareId() && todoItem.User == Settings.User.UserId).ToCollectionAsync();
+
             foreach (var item in items)
             {
-                
+                Settings.Device = item.UniqueId;
+            }
+            if (String.IsNullOrEmpty(Settings.Device)) 
+            {
+                Devices d = new Devices();
+                d.User = Settings.User.UserId;
+                d.UniqueId = GetHardwareId();
+                var k = Windows.Networking.Connectivity.NetworkInformation.GetHostNames();
+                if (k != null)
+                {
+                    d.Name = k[0].DisplayName;
+                }
+                await App.MobileService.GetTable<Devices>().InsertAsync(d);
+                Settings.Device = d.UniqueId;
             }
             
         }
