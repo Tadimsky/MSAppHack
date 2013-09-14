@@ -10,12 +10,14 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using phoneApp.Resources;
 using phoneApp.ViewModels;
+using phoneApp.Models;
 
 namespace phoneApp
 {
     public partial class App : Application
     {
         private static MainViewModel viewModel = null;
+        private static CommandManager commandManager = new CommandManager();
 
         /// <summary>
         /// A static ViewModel used by the views to bind against.
@@ -30,6 +32,13 @@ namespace phoneApp
                     viewModel = new MainViewModel();
 
                 return viewModel;
+            }
+        }
+        public static CommandManager CommandManager
+        {
+            get
+            {
+                return commandManager;
             }
         }
 

@@ -29,5 +29,15 @@ namespace phoneApp
                 App.ViewModel.LoadData();
             }
         }
+
+        private void LongListSelector_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            //do something here when you click on something
+        }
+
+        private void Directions_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
